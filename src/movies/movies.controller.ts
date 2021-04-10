@@ -25,7 +25,7 @@ export class MoviesController {
     return `${searchYear}년도 이후의 영화들을 검색합니다.`;
   }
 
-  @Get('/:id')
+  @Get(':id')
   getOne(@Param('id') movieId: string): Movie {
     return this.moviesService.getOne(movieId);
   }
@@ -35,16 +35,13 @@ export class MoviesController {
     return this.moviesService.create(movieData);
   }
 
-  @Delete()
+  @Delete(':id')
   remove(@Param('id') movieId: string) {
     return this.moviesService.deleteOne(movieId);
   }
 
-  @Patch('/:id')
+  @Patch(':id')
   update(@Param('id') movieId: string, @Body() updateData) {
-    return {
-      updateMovie: movieId,
-      ...updateData,
-    };
+    return this.moviesService.update(movieId, updateData);
   }
 }
